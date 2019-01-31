@@ -195,6 +195,8 @@ public class ProjectControllerAdmin {
             }
         }
 
+        projectService.save(project);
+
         return Result.success().setMsg("修改成功");
     }
 
