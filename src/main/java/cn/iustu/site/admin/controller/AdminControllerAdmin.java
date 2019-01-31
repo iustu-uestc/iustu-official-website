@@ -1,10 +1,10 @@
 package cn.iustu.site.admin.controller;
 
-import cn.iustu.site.config.constant.IUSTUConstant;
 import cn.iustu.site.common.entity.Admin;
 import cn.iustu.site.common.model.Result;
 import cn.iustu.site.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -16,12 +16,15 @@ import javax.servlet.http.HttpSession;
 @RequestMapping("/admin")
 public class AdminControllerAdmin {
 
+    @Value("${iustu.login-view-url}")
+    private String loginViewUrl;
+
     @Autowired
     private AdminService adminService;
 
     @GetMapping("/loginView")
     public String login(){
-        return "redirect:" + IUSTUConstant.LOGIN_VIEW;
+        return "redirect:" + loginViewUrl;
     }
 
     @GetMapping("/logout")

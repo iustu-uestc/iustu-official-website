@@ -1,6 +1,5 @@
 package cn.iustu.site.admin.controller;
 
-import cn.iustu.site.config.constant.IUSTUConstant;
 import cn.iustu.site.common.entity.Project;
 import cn.iustu.site.common.entity.ProjectMember;
 import cn.iustu.site.common.entity.dto.ProjectDTO;
@@ -15,6 +14,7 @@ import cn.iustu.site.service.ProjectMemberService;
 import cn.iustu.site.service.ProjectService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,6 +26,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/admin/project")
 public class ProjectControllerAdmin {
+
+    @Value("${iustu.domain}")
+    private String domain;
+
+    @Value("${iustu.upload-path}")
+    private String uploadPath;
 
     @Autowired
     private ProjectService projectService;
@@ -107,7 +113,7 @@ public class ProjectControllerAdmin {
 
         //上传项目图片
         try {
-            String path = UploadUtil.uploadFile(IUSTUConstant.DOMAIN, IUSTUConstant.UPLOAD_PATH, projectDTO.getImage(), request);
+            String path = UploadUtil.uploadFile(domain, uploadPath, projectDTO.getImage(), request);
             project.setImage(path);
         } catch (Exception e) {
             e.printStackTrace();
@@ -160,7 +166,7 @@ public class ProjectControllerAdmin {
         //上传项目图片并更新
         if (projectDTO.getImage() != null) {
             try {
-                String path = UploadUtil.uploadFile(IUSTUConstant.DOMAIN, IUSTUConstant.UPLOAD_PATH, projectDTO.getImage(), request);
+                String path = UploadUtil.uploadFile(domain, uploadPath, projectDTO.getImage(), request);
                 project.setImage(path);
             } catch (Exception e) {
                 e.printStackTrace();

@@ -1,6 +1,5 @@
 package cn.iustu.site.admin.controller;
 
-import cn.iustu.site.config.constant.IUSTUConstant;
 import cn.iustu.site.common.entity.Member;
 import cn.iustu.site.common.entity.ProjectMember;
 import cn.iustu.site.common.model.Page;
@@ -10,6 +9,7 @@ import cn.iustu.site.common.util.UploadUtil;
 import cn.iustu.site.service.MemberService;
 import cn.iustu.site.service.ProjectMemberService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,6 +20,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/admin/member")
 public class MemberControllerAdmin {
+
+    @Value("${iustu.domain}")
+    private String domain;
+
+    @Value("${iustu.upload-path}")
+    private String uploadPath;
 
     @Autowired
     private MemberService memberService;
@@ -73,7 +79,7 @@ public class MemberControllerAdmin {
         Member member = new Member();
 
         try {
-            String path = UploadUtil.uploadFile(IUSTUConstant.DOMAIN, IUSTUConstant.UPLOAD_PATH, avatar, request);
+            String path = UploadUtil.uploadFile(domain, uploadPath, avatar, request);
             member.setAvatar(path);
         } catch (Exception e) {
             e.printStackTrace();
@@ -105,7 +111,7 @@ public class MemberControllerAdmin {
 
         if(avatar != null){
             try {
-                String path = UploadUtil.uploadFile(IUSTUConstant.DOMAIN, IUSTUConstant.UPLOAD_PATH, avatar, request);
+                String path = UploadUtil.uploadFile(domain, uploadPath, avatar, request);
                 member.setAvatar(path);
             } catch (Exception e) {
                 e.printStackTrace();

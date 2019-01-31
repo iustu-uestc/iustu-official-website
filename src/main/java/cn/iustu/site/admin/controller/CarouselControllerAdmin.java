@@ -1,11 +1,11 @@
 package cn.iustu.site.admin.controller;
 
-import cn.iustu.site.config.constant.IUSTUConstant;
 import cn.iustu.site.common.entity.Carousel;
 import cn.iustu.site.common.model.Result;
 import cn.iustu.site.common.util.UploadUtil;
 import cn.iustu.site.service.CarouselService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +18,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/admin/carousel")
 public class CarouselControllerAdmin {
+
+    @Value("${iustu.domain}")
+    private String domain;
+
+    @Value("${iustu.upload-path}")
+    private String uploadPath;
 
     @Autowired
     private CarouselService carouselService;
@@ -35,7 +41,7 @@ public class CarouselControllerAdmin {
         if(image == null) return Result.fail().setMsg("图片不能为空");
 
         try {
-            String path = UploadUtil.uploadFile(IUSTUConstant.DOMAIN, IUSTUConstant.UPLOAD_PATH, image, request);
+            String path = UploadUtil.uploadFile(domain, uploadPath, image, request);
             Carousel carousel = new Carousel();
             carousel.setId(id);
             carousel.setImage(path);
