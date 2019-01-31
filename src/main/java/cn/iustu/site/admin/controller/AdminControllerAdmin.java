@@ -21,8 +21,7 @@ public class AdminControllerAdmin {
 
     @GetMapping("/loginView")
     public String login(){
-        //todo 登录页面 redirect:登录页面url
-        return IUSTUConstant.LOGIN_VIEW;
+        return "redirect:" + IUSTUConstant.LOGIN_VIEW;
     }
 
     @GetMapping("/logout")
