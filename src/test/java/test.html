@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="jquery-3.3.1.min.js"></script>
+</head>
+<body>
+
+<input type="button" onclick="test01()">
+
+<script>
+    function test01() {
+
+        alert("test begin!");
+
+        var data = {
+            "name": "项目1",
+            "projectMembers": [
+                {
+                    "projectId": 1,
+                    "memberId": 2,
+                    "role": "产品经理"
+                },
+                {
+                    "projectId": 1,
+                    "memberId": 2,
+                    "role": "ios开发"
+                },
+                {
+                    "projectId": 1,
+                    "memberId": 2,
+                    "role": "安卓开发"
+                }
+            ]
+        };
+
+        $.ajax({
+            url: "localhost:8080/admin/contact/get",
+            type: "get",
+            dataType: "json",
+            contentType: "application/json;charset=utf8",
+            // data: data,
+            success: function (result) {
+                alert(result.data.qq);
+            }
+        });
+    }
+</script>
+</body>
+</html>

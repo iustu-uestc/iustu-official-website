@@ -1,0 +1,36 @@
+profiles: dev
+
+server:
+  port: 8080
+
+spring:
+##############################################################################################################
+##################################### 按实际需求更改数据源配置 #################################################
+##############################################################################################################
+  datasource:
+    url: jdbc:mysql://localhost:3306/site?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+###############################################################################################################
+
+  jackson:
+    date-format: yyyy-MM-dd
+    time-zone: GMT+8
+
+  thymeleaf:
+    prefix: classpath:/templates/
+
+  jpa:
+    show-sql: true
+    database: mysql
+    hibernate:
+      use-new-id-generator-mappings: false
+
+
+
+logging:
+  level:
+    root: info
+
+
